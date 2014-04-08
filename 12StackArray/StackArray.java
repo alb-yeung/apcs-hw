@@ -23,7 +23,7 @@ public class StackArray{
 	}
 
 	public String pop(){
-		int value = stack[size-1];
+		String value = stack[size-1];
 		stack[size-1]="";
 		size--;
 		return value;

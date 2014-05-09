@@ -25,31 +25,40 @@ public class BST{
         public void setLeft(Node n){
             left = n;
         }
+	
+	public String toString(){
+	    return ""+data;
+	}
     }
     
     private Node root;
 
-    public void insert(Node n){
+    public Node getRoot(){
+	return root;
+    }
+
+    public void insert(int n){
+	Node inserting = new Node(n);
         Node temp = root;
         Node next = temp;
         if (root == null){
-            root = n;
+            root = inserting;
         }else{
-            if (n.getData()<temp.getData())
+            if (inserting.getData()<temp.getData())
                 next = temp.getLeft();
             else
                 next = temp.getRight();
             while(next!=null){
                 temp = next;
-                if (n.getData()<temp.getData())
+                if (inserting.getData()<temp.getData())
                     next = temp.getLeft();
                 else    
                     next = temp.getRight();
             }
-            if (n.getData()<temp.getData())
-                temp.setLeft(n);
+            if (inserting.getData()<temp.getData())
+                temp.setLeft(inserting);
             else
-                temp.setRight(n);
+                temp.setRight(inserting);
         }   
     }
 
@@ -64,6 +73,9 @@ public class BST{
         return temp;
     }
     public Node searchParent(int x){
+	if(x==root.getData()){
+	    return root;
+	}
         Node temp = root;
         while(temp!=null && temp.getRight().getData()!=x && temp.getLeft().getData()!=x){
             if (x<temp.getData())
@@ -77,9 +89,9 @@ public class BST{
     public Node rsearch(Node c,int x){
         if(c==null){
             return c;
-        }if(c.getData() = x){
+        }if(c.getData() == x){
             return c;
-        }slse{
+        }else{
             if (x<c.getData()){
                 return rsearch(c.getLeft(),x);
             }else{
@@ -118,5 +130,42 @@ public class BST{
         //Search for largest
             
         }
+    }
+
+    public void traverse(){
+	traverse(root);
+    }
+    public void traverse(Node c){
+	//Base case
+	if (c==null){
+	    return;
+	}
+	//Print
+	//traverse(c.getRight());
+	traverse(c.getLeft());
+	//System.out.println(c);
+	//traverse(c.getLeft());
+	traverse(c.getRight());
+	System.out.println(c);
+    }
+
+    public static void main(String[]args){
+	BST tree = new BST();
+	tree.insert(5);
+	tree.insert(8);
+	tree.insert(4);
+	tree.insert(2);
+	tree.insert(3);
+	tree.insert(7);
+	tree.insert(10);
+	tree.insert(1);
+	//System.out.println(tree.getRoot());
+	tree.traverse();
+	System.out.println();
+	System.out.println();
+	tree.remove(1);
+	tree.traverse();
+	//tree.remove(5);
+	//System.out.println(tree.getRoot());
     }
 }
